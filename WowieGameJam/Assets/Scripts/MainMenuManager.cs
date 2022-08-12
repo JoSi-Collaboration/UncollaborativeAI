@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagment;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -21,6 +21,9 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Quit");
     }
     public void Settings(){
-        SceneManager.loadScene("Settings");
+        SceneManager.LoadScene("Settings");
+    }
+    public void StartGame(){
+        SceneManager.LoadScene("SampleScene");
     }
 }
