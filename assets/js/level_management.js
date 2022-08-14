@@ -4,7 +4,7 @@ var time_update = 0;
 var last_lvl_upd = 0;
 
 levels = {
-    "3": {
+    "1": {
         "js": `var id = window.setInterval(function() {
             if (current_lvl != 1) {
                 window.clearInterval(id);
@@ -22,9 +22,10 @@ levels = {
         `,
         "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code"]
     },
-    "1": {
+    "3": {
         "js": `
         var PlayerCounter = 0;
+        var AICounter = 0;
         document.getElementById("Start").remove();
             
         function playerOnClick(buttonname){
@@ -39,26 +40,26 @@ levels = {
         }
         function Run_AI(){
             timeout = Math.floor(Math.random() * 200)
-            console.log(PlayerCounter);
+            console.log(AICounter);
             last_button = String(Math.floor(Math.random() * 4)+1);
-            if (PlayerCounter>5 && PlayerCounter%4 == 0){
+            if (PlayerCounter>5 && AICounter%4 == 0){
                 last_button = "1"
                 timeout = 0;
             }
-            if (PlayerCounter>10 && PlayerCounter%4 == 1){
+            if (PlayerCounter>10 && AICounter%4 == 1){
                 last_button = "2"
                 timeout = 0;
             }
-            if (PlayerCounter>15 && PlayerCounter%4 == 2){
+            if (PlayerCounter>15 && AICounter%4 == 2){
                 last_button = "3"
                 timeout = 0;
             }
-            if (PlayerCounter>20 && PlayerCounter%4 == 3){
+            if (PlayerCounter>20 && AICounter%4 == 3){
                 last_button = "4"
                 timeout = 0;
             }
             
-            
+            AICounter ++;
             
             last_ai_click = Math.floor(Date.now() / 1000);
             btn = document.getElementById("ai"+last_button);
@@ -68,7 +69,7 @@ levels = {
                 btn.style.backgroundColor = "#8a2dfcfd";
             })()
             //console.log(last_ai_click);
-            console.log(timeout);
+
             setTimeout(function() { Run_AI(); }, 2100 - timeout);
             
         }
@@ -79,16 +80,16 @@ levels = {
             <tr class="full-wh nb">
                     <td class="half-w nb button-td">
                         <button type="button" class="ai_button" id="ai1">AI</button> 
-                        <button type="button" class="player_button" id="player1" onclick="playerOnClick("1");">Player</button> 
+                        <button type="button" class="player_button" id="player1" onclick="playerOnClick('1');">Player</button> 
                         <br>
                         <button type="button" class="ai_button" id="ai2">AI</button> 
-                        <button type="button" class="player_button" id="player2" onclick="playerOnClick("2");">Player</button> 
+                        <button type="button" class="player_button" id="player2" onclick="playerOnClick('2');">Player</button> 
                         <br>
                         <button type="button" class="ai_button" id="ai3">AI</button> 
-                        <button type="button" class="player_button" id="player3" onclick="playerOnClick("3");">Player</button> 
+                        <button type="button" class="player_button" id="player3" onclick="playerOnClick('3');">Player</button> 
                         <br>
                         <button type="button" class="ai_button" id="ai4">AI</button> 
-                        <button type="button" class="player_button" id="player4" onclick="playerOnClick("4");">Player</button> 
+                        <button type="button" class="player_button" id="player4" onclick="playerOnClick('4');">Player</button> 
                     </td>
             </tr>
         </table>`,
