@@ -23,11 +23,19 @@ levels = {
         "tips": ["You need to find the hidden button to enable the AI.", "Maybe you may need to change the code"]
     },
     "3": {
-        "js": `function StartAI(){
-            window.setInterval(function() {if (current_lvl != 3) {window.clearInterval(id);return;};ai_click();}, 5000);
+        "js": `var ai_started = false;
+        function StartAI(){
+            if (ai_started==true) {
+                console.log("AI already started!");
+                return;
+            } else {
+                ai_started = true;
+                console.log("AI started!");
+                var id = window.setInterval(function() {if (current_lvl != 3) {window.clearInterval(id);return;};ai_click();}, 5000);
+            }
         }`,
         "html": ``,
-        "tips": ["Who designed this code. That's really easy to hack.", "In Javascript there is something called a function. But I don't know if this helps you to Start(the)AI"]
+        "tips": ["Who designed this code. That's really easy to hack.", "In Javascript there is something called a function. But I don't know if this helps you to Start(the)AI", "You can access the console by right-clicking and then clicking inspect. Somewhere there you should be able to get access to a console"]
     },
     "4": {
         "js": `
