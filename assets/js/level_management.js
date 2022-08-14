@@ -20,7 +20,7 @@ levels = {
         "html": `
             <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();")>Start AI</button> 
         `,
-        "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code"]
+        "tips": ["You need to find the hidden button to enable the AI.", "Maybe you may need to change the code"]
     },
     "3": {
         "js": `function StartAI(){
@@ -34,14 +34,16 @@ levels = {
         var PlayerCounter = 0;
         var AICounter = 0;
         document.getElementById("Start").remove();
-            
+
         function playerOnClick(buttonname){
             console.log("Working");
             PlayerCounter ++;
             let now = Math.floor(Date.now() / 1000);
+            
             if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3 || buttonname != last_button) {
                 return
             } else {
+                console.log("Loading next Level");
                 next_level();
             }
         }
@@ -83,6 +85,7 @@ levels = {
         setTimeout(function() { Run_AI(); }, 100);
         `,
         "html": `
+        <div id="Start">
         <table class="full-wh nb">
             <tr class="full-wh nb">
                     <td class="half-w nb button-td">
@@ -99,7 +102,8 @@ levels = {
                         <button type="button" class="player_button" id="player4" onclick="playerOnClick('4');">Player</button> 
                     </td>
             </tr>
-        </table>`,
+        </table>
+        </div>`,
         "tips": ["Maybe try and the AI will learn to help you"]
     }
 };
@@ -181,8 +185,8 @@ function next_level() {
         if (time["sec"] == 0) {
             time["min"] = time["min"] - 1;
             time["sec"] = 59;
-            if (time["min"]!=4) {
-                hint_dict = {3: 0, 2: 1, 1: 2, 0: 3}
+            if (time["min"] != 4) {
+                hint_dict = { 3: 0, 2: 1, 1: 2, 0: 3 }
                 if (levels[String(current_lvl)]["tips"][hint_dict[time["min"]]] != undefined) {
                     main_area.innerHTML += `<span class="hint_notif" id="hint"><b>HINT: </b>${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</span>`;
                     var times_run = 0;
