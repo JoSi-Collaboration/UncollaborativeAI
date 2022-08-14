@@ -3,7 +3,12 @@ var last_ai_click = 0;
 
 levels = {
     "1": {
-        "js": `window.setInterval(function() {ai_click();}, 5000);`,
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+            }
+            ai_click();
+        }, 5000);`,
         "html": "",
         "tip": "You need to press the Player button at the same time as the AI presses the AI button"
     }
@@ -40,13 +45,18 @@ function ai_click() {
 }
 
 function next_level() {
+    time = {
+        "min": 5,
+        "sec": 0
+    }
     let main_area = document.getElementById("content")
     let code_area = document.getElementById("js_loading");
     current_lvl++;
     if (current_lvl == 1) {
         main_area.innerHTML = `
         <div class="info">
-            <b>Current level: </b><span id="cur_lvl">1</span>
+            <b>Current level: </b><span id="cur_lvl">1</span><br>
+            <b>Time left: </b><span id="time">5min 0sec</span>
         </div>
         <table class="full-wh nb">
             <tr class="full-wh nb">
