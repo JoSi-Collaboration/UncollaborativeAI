@@ -4,7 +4,7 @@ var time_update = 0;
 var last_lvl_upd = 0;
 
 levels = {
-    "1": {
+    "3": {
         "js": `var id = window.setInterval(function() {
             if (current_lvl != 1) {
                 window.clearInterval(id);
@@ -22,7 +22,7 @@ levels = {
         `,
         "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code"]
     },
-    "3": {
+    "1": {
         "js": `
         var PlayerCounter = 0;
         document.getElementById("Start").remove();
@@ -142,7 +142,7 @@ function next_level() {
             <b>Current level: </b><span id="cur_lvl">1</span><br>
             <b>Time left: </b><span id="time">5min 0sec</span>
         </div>
-        <table class="full-wh nb">
+        <table class="full-wh nb" id="Start">
             <tr class="full-wh nb">
                 <td class="half-w nb button-td">
                     <button type="button" class="ai_button" id="ai">Artificial intelligence</button>
