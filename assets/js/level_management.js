@@ -13,14 +13,14 @@ levels = {
             ai_click();
         }, 5000);`,
         "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button"]
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green"]
     },
     "2": {
         "js": ``,
         "html": `
             <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();")>Start AI</button> 
         `,
-        "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code."]
+        "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code"]
     }
 };
 
@@ -82,7 +82,18 @@ function next_level() {
         </table>
         `;
     } else {
-        window.clearInterval(time_update)
+        window.clearInterval(time_update);
+        main_area.innerHTML += `<span class="level_notif" id="lvlup">You successfully solved level ${current_lvl-1}</span>`;
+        var times_run = 0;
+        var remove_lvlup = window.setInterval(function() {
+            if (times_run == 0) {
+                times_run++;
+            } else if (times_run==1) {
+                document.getElementById("lvlup").remove()
+                window.clearInterval(remove_lvlup)
+                return
+            }
+        }, 2000);
     }
     time_update = window.setInterval(function() {
         if (time["sec"] == 0) {
@@ -110,7 +121,7 @@ function next_level() {
         code_area.innerHTML = "";
         unnes.innerHTML = "";
         confetti({
-            particleCount: 500,
+            particleCount: 1000,
             spread: 100,
             origin: { y: 0.6 }
         });
