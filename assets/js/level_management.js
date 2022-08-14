@@ -22,7 +22,7 @@ var setInnerHTML = function(elm, html) {
 
 function player_click() {
     let now = Math.floor(Date.now() / 1000);
-    if (now-last_ai_click > 0.5) {
+    if (now-last_ai_click > 0.3) {
         return
     } else {
         next_level();
@@ -34,7 +34,7 @@ function ai_click() {
     btn = document.getElementById("ai");
     btn.style.backgroundColor = "green";
     (async()=> {
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 300));
         btn.style.backgroundColor = "#8a2dfcfd";
     }) ()
 }
