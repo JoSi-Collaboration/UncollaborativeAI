@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+* {
+    color: rgba(255, 255, 255, 0.87);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'Silkscreen', cursive;
+}
+
+html, body {
+    background-color: #121212;
+    height: 100%;
+}
+
+#start {
+    position: absolute;
+    left: 0;
+    top: 40%;
+    padding: 0 20px;
+    width: 100%;
+    text-align: center;
+}
+
+#start button {
+    background-color: #BB86FC;
+    color: #000000;
+    border: 0;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: larger;
+    animation: padding_smaller 0.2s linear normal forwards
+}
+
+#start button:hover {
+    cursor: pointer;
+    background-color: #a55cfd;
+    animation: padding_larger 0.2s linear normal forwards
+}
+
+@keyframes padding_larger {
+    0% {padding-right: 10px; padding-left: 10px;}
+    100% {padding-right: 15px; padding-left: 15px;}
+}
+
+@keyframes padding_smaller {
+    0% {padding-right: 15px; padding-left: 15px;}
+    100% {padding-right: 10px; padding-left: 10px;}
+}
+
+canvas{
+    height:100vh;
+    background-color:#121212;
+}
+
+.full-wh {
+    width:100%; 
+    height:100%; 
+}
+
+.nb {
+    border:0
+}
+
+.half-w {
+    width: 50%;
+}
+
+.button-td {
+    padding-top: 20%;
+    text-align: center;
+}
+
+.player_button {
+    background-color: #BB86FC;
+    color: #000000;
+    border: 0;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: xx-large;
+    animation: padding_smaller 0.2s linear normal forwards
+}
+
+.player_button:hover {
+    cursor: pointer;
+    background-color: #a55cfd;
+    animation: padding_larger 0.2s linear normal forwards
+}
+
+.ai_button {
+    background-color: #8a2dfcfd;
+    color: rgba(0, 0, 0, 0.7);
+    border: 0;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: xx-large;
+}
+
+.ai_button:hover {
+    cursor: not-allowed;
+}
+
+.player_button:active {
+    background-color: green;
+}
+
+.info {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #CF6679;
+    color: #000000;
+    padding: 5px;
+}
+
+.hidden {
+    display: none;
+}
