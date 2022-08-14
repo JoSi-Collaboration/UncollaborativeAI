@@ -23,6 +23,13 @@ levels = {
         "tips": ["You need to find the hidden button to enable the AI or somehow else enable the AI", "Maybe you may need to change the code"]
     },
     "3": {
+        "js": `function StartAI(){
+            window.setInterval(function() {if (current_lvl != 3) {window.clearInterval(id);return;};ai_click();}, 5000);
+        }`,
+        "html": ``,
+        "tips": ["Who designed this code. That's really easy to hack.", "In Javascript there is something called a function. But I don't know if this helps you to Start(the)AI"]
+    },
+    "4": {
         "js": `
         var PlayerCounter = 0;
         var AICounter = 0;
@@ -93,7 +100,7 @@ levels = {
                     </td>
             </tr>
         </table>`,
-        "tips": ["You need to find the button to enable the AI or somehow else enable the AI"]
+        "tips": ["Maybe try and the AI will learn to help you"]
     }
 };
 
