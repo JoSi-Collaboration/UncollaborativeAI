@@ -127,7 +127,7 @@ canvas{
     display: none;
 }
 
-.hint {
+.hint_notif {
     position: absolute;
     top: 0px;
     background-color: green;
