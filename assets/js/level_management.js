@@ -174,6 +174,22 @@ function next_level() {
         if (time["sec"] == 0) {
             time["min"] = time["min"] - 1;
             time["sec"] = 59;
+            if (time["min"]!=4) {
+                hint_dict = {3: 0, 2: 1, 1: 2, 0: 3}
+                if (levels[String(current_lvl)]["tips"][hint_dict[time["min"]]] != undefined) {
+                    main_area.innerHTML += `<span class="hint_notif" id="hint"><b>HINT: </b>${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</span>`;
+                    var times_run = 0;
+                    var remove_hint = window.setInterval(function() {
+                        if (times_run == 0) {
+                            times_run++;
+                        } else if (times_run == 1) {
+                            document.getElementById("hint").remove()
+                            window.clearInterval(remove_hint)
+                            return
+                        }
+                    }, 10000);
+                }
+            }
         } else {
             time["sec"] = time["sec"] - 1;
         }

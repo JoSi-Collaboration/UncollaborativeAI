@@ -126,3 +126,12 @@ canvas{
 .hidden {
     display: none;
 }
+
+.hint {
+    position: absolute;
+    top: 0px;
+    background-color: green;
+    text-align: center;
+    color: #000000;
+    padding: 5px;
+}
