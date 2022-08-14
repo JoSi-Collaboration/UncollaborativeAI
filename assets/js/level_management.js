@@ -1,11 +1,14 @@
 var current_lvl = 0;
 var last_ai_click = 0;
+var time_update = 0;
+var last_lvl_upd = 0;
 
 levels = {
     "1": {
         "js": `var id = window.setInterval(function() {
             if (current_lvl != 1) {
                 window.clearInterval(id);
+                return
             }
             ai_click();
         }, 5000);`,
@@ -27,7 +30,7 @@ var setInnerHTML = function(elm, html) {
 
 function player_click() {
     let now = Math.floor(Date.now() / 1000);
-    if (now-last_ai_click > 0.3) {
+    if (now-last_ai_click > 0.3 && now-last_lvl_upd > 0.2){
         return
     } else {
         next_level();
@@ -45,6 +48,7 @@ function ai_click() {
 }
 
 function next_level() {
+    last_lvl_upd = Math.floor(Date.now() / 1000);
     time = {
         "min": 5,
         "sec": 0
@@ -69,7 +73,18 @@ function next_level() {
             </tr>
         </table>
         `;
+    } else {
+        window.clearInterval(time_update)
     }
+    time_update = window.setInterval(function() {
+        if (time["sec"] == 0) {
+            time["min"] = time["min"]-1;
+            time["sec"] = 59;
+        } else {
+            time["sec"] = time["sec"]-1;
+        }
+        document.getElementById("time").innerHTML = `${time["min"]}min ${time["sec"]}sec`;
+    }, 1000);
     if (!(String(current_lvl) in levels)) {
         current_lvl = current_lvl-1;
         code_area.innerHTML = "";
