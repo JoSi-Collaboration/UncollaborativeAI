@@ -50,7 +50,10 @@ var setInnerHTML = function(elm, html) {
 
 function player_click() {
     let now = Math.floor(Date.now() / 1000);
-    if (now - last_ai_click > 0.3 && now - last_lvl_upd > 0.2) {
+    //console.log(now - last_lvl_upd);
+    //console.log(now - last_ai_click);
+
+    if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
         return
     } else {
         next_level();
