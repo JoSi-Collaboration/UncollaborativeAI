@@ -13,7 +13,7 @@ levels = {
             ai_click();
         }, 5000);`,
         "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green"]
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
     },
     "2": {
         "js": ``,
