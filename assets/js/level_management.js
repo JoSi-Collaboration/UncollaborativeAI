@@ -166,8 +166,10 @@ function next_level() {
         </table>
         `;
     } else {
-        btn = document.getElementById("ai");
-        btn.style.backgroundColor = "#8a2dfcfd";
+        var btns = document.getElementsByClassName("ai_button");
+        for (let btn of btns) {
+            btn.style.backgroundColor = "#8a2dfcfd";
+        }
         window.clearInterval(time_update);
         main_area.innerHTML += `<span class="level_notif" id="lvlup">You successfully solved level ${current_lvl-1}</span>`;
         var times_run = 0;
