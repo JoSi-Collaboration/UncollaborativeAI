@@ -3,7 +3,8 @@ var last_ai_click = 0;
 var time_update = 0;
 var last_lvl_upd = 0;
 var audio_enabled = true;
-
+var words = ["Hallo"];
+var word_KI_Trys_toWrite = [];
 levels = {
     "1": {
         "js": `var id = window.setInterval(function() {
@@ -398,14 +399,47 @@ levels = {
         "tips": ["This seems like an hidden input key. What does this acitiavate"]
     },
     "10": {
-        "js": `var id = window.setInterval(function() {
-            if (current_lvl != 1) {
+        "js": `
+        var Word = words[Math.floor(Math.random() * words.length)];
+        var RemoveTimer = 0;
+        var SavedLetters = "";
+        var OtherLetters = "";
+        function letterGenerator(){
+            if (concat(SavedLetters,OtherLetters) == Word){
+                next_level();
+            }
+        }
+        function AI_Accepts(){
+
+        }
+        function RemoveLetter(){
+            if (OtherLetters == ""){
+                if (SavedLetters == ""){
+                    return;
+                }
+                SavedLetters = SavedLetters.slice(0, -1);
+            }
+            OtherLetters = OtherLetters.slice(0, -1);
+        }
+        function SaveLetter(){
+
+        }
+        var id = window.setInterval(function() {
+            if (current_lvl != 10) {
                 window.clearInterval(id);
                 return
             }
-            ai_click();
+            letterGenerator();
         }, 5000);`,
-        "html": "",
+        "html": `
+        
+        <h3 id="text"></h3>
+        <td class="half-w nb button-td">
+            <button type="button" class="player_button" id="ai">Remove Letter</button>
+        </td>
+        <td class="half-w nb button-td">
+            <button type="button" class="player_button" onclick="">Lock Letter</button>
+        </td>`,
         "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
     }
 };
