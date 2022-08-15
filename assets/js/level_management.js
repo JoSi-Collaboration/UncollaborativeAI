@@ -2,6 +2,7 @@ var current_lvl = 0;
 var last_ai_click = 0;
 var time_update = 0;
 var last_lvl_upd = 0;
+var audio_enabled = true;
 
 levels = {
     "1": {
@@ -129,6 +130,10 @@ var setInnerHTML = function(elm, html) {
 
 function player_click() {
     let now = Math.floor(Date.now() / 1000);
+    if (audio_enabled==true) {
+        var audio = new Audio('./assets/audio/click.wav');
+        audio.play();
+    }
     if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
         return
     } else {
@@ -158,6 +163,7 @@ function next_level() {
     current_lvl++;
     if (current_lvl == 1) {
         main_area.innerHTML = `
+        <div id="audio_controll"><button type="button" onclick="toggleAudio()" id="toggle_audio"><i class="fa-solid fa-volume"></i></button></div>
         <div class="info">
             <b>Current level: </b><span id="cur_lvl">1</span><br>
             <b>Time left: </b><span id="time">5min 0sec</span>
@@ -218,6 +224,10 @@ function next_level() {
         if (time["sec"] == 0 && time["min"] == 0) {
             code_area.innerHTML = "";
             unnes.innerHTML = "";
+            if (audio_enabled==true) {
+                var audio = new Audio('./assets/audio/game-over.wav');
+                audio.play();
+            }
             main_area.innerHTML = `
             <div id="start">
                 <h1>Time's up</h1><br>
@@ -232,6 +242,10 @@ function next_level() {
         current_lvl = current_lvl - 1;
         code_area.innerHTML = "";
         unnes.innerHTML = "";
+        if (audio_enabled==true) {
+            var audio = new Audio('./assets/audio/all-lvl-compl.wav');
+            audio.play();
+        }
         confetti({
             particleCount: 1000,
             spread: 100,
@@ -244,6 +258,11 @@ function next_level() {
         </div>
         `;
         return;
+    } else if (current_lvl != 1) {
+        if (audio_enabled==true) {
+            var audio = new Audio('./assets/audio/next-lvl.wav');
+            audio.play();
+        }
     }
     document.getElementById("cur_lvl").innerHTML = current_lvl;
     js = levels[String(current_lvl)]["js"];
@@ -252,4 +271,13 @@ function next_level() {
     /*const lines = str.split(/\r\n|\r|\n/);*/
     unnes.innerHTML = `${unnes.innerHTML}
     ${html}`;
+}
+
+function toggleAudio() {
+    audio_enabled = !audio_enabled
+    if (audio_enabled) {
+        document.getElementById("toggle_audio").innerHTML = '<i class="fa-solid fa-volume"></i>';
+    } else {
+        document.getElementById("toggle_audio").innerHTML = '<i class="fa-solid fa-volume-slash"></i>';
+    }
 }
