@@ -5,6 +5,8 @@ var last_lvl_upd = 0;
 var audio_enabled = true;
 var words = ["Hallo"];
 var word_KI_Trys_toWrite = [];
+var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 levels = {
     "1": {
         "js": `var id = window.setInterval(function() {
@@ -518,17 +520,54 @@ levels = {
     },
     "10": {
         "js": `
+        element = document.getElementById("level5");
+        if (element != null) {
+            element.remove();
+        }
         var Word = words[Math.floor(Math.random() * words.length)];
-        var RemoveTimer = 0;
+        var RemoveTimer = 10;
+
         var SavedLetters = "";
         var OtherLetters = "";
+        var newLetter = "";
+        var position = 0;
+        var lastAccepted = 0;
         function letterGenerator(){
-            if (concat(SavedLetters,OtherLetters) == Word){
+            position = Math.floor(Math.random() * characters.length);
+            newLetter = characters.charAt(position);
+            
+            document.getElementById("letter").innerHTML = newLetter;
+            if (SavedLetters+OtherLetters == Word){
                 next_level();
             }
-        }
-        function AI_Accepts(){
 
+            RemoveTimer -= 1;
+            if (RemoveTimer == 0){
+                RemoveTimer = 10;
+                if (SavedLetters.length != 0){
+                    OtherLetters = SavedLetters.slice(-1) + OtherLetters;
+                    SavedLetters = SavedLetters.slice(0, -1);
+                }
+            }
+            lastAccepted += 1
+            AI_Level10(newLetter);
+        }
+        
+        function AI_Level10(Letter){
+            if (lastAccepted<5){
+                return;
+            }
+            if (lastAccepted>20){
+                OtherLetters += Letter
+                lastAccepted = 0;
+                return;
+            }
+            if (Math.floor(Math.random() * 10) == 7){
+                OtherLetters += Letter
+                lastAccepted = 0;
+                return;
+            }
+            
         }
         function RemoveLetter(){
             if (OtherLetters == ""){
@@ -542,22 +581,29 @@ levels = {
         function SaveLetter(){
 
         }
-        var id = window.setInterval(function() {
+        var id2 = window.setInterval(function() {
             if (current_lvl != 10) {
-                window.clearInterval(id);
+                window.clearInterval(id2);
                 return
             }
             letterGenerator();
-        }, 5000);`,
+        }, 200);`,
         "html": `
-        
-        <h3 id="text"></h3>
-        <td class="half-w nb button-td">
-            <button type="button" class="player_button" id="ai">Remove Letter</button>
-        </td>
-        <td class="half-w nb button-td">
-            <button type="button" class="player_button" onclick="">Lock Letter</button>
-        </td>`,
+        <div id="Start">
+            <table class="full-wh nb">
+                <tr class="full-wh nb">
+                    
+                    <td class="half-w nb button-td">
+                        <button type="button" class="player_button" id="ai">Remove Letter</button>
+                    </td>
+                    <td class="half-w nb button-td">
+                        <button type="button" class="player_button" onclick="">Lock Letter</button>
+                    </td>
+                    <h3 id="letter"></h3><br>
+                    <h3 id="text"></h3>
+                </tr>
+            </table>
+        </div>`,
         "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
     }
 };
