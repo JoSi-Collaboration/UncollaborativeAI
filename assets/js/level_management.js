@@ -115,7 +115,7 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["Maybe the AI is at some point to bored to select randomly?"]
+        "tips": ["React quickly!!", "Maybe the AI is at some point to bored to select randomly?"]
     },
     "5": {
         "js": `
