@@ -595,17 +595,19 @@ levels = {
         }, 200);`,
         "html": `
         <div id="Start">
+            <div id="lvl10-box">
+                <h3 id="letter"></h3><br>
+                <h3 id="text"></h3>
+            </div>
             <table class="full-wh nb">
                 <tr class="full-wh nb">
                     
-                    <td class="half-w nb button-td">
+                    <td class="half-w nb button-td_lvl10">
                         <button type="button" class="player_button" id="ai">Remove Letter</button>
                     </td>
-                    <td class="half-w nb button-td">
+                    <td class="half-w nb button-td_lvl10">
                         <button type="button" class="player_button" onclick="">Lock Letter</button>
                     </td>
-                    <h3 id="letter"></h3><br>
-                    <h3 id="text"></h3>
                 </tr>
             </table>
         </div>`,

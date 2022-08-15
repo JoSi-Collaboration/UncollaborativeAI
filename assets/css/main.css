@@ -170,3 +170,13 @@ canvas{
     border-bottom: 10px solid transparent; 
     border-right:10px solid green; 
 }
+
+#lvl10-box {
+    text-align: center;
+    padding-top: 15%;
+}
+
+.button-td_lvl10 {
+    padding-top: 5%;
+    text-align: center;
+}
