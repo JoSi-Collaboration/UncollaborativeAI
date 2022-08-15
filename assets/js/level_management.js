@@ -318,6 +318,9 @@ function next_level() {
     let main_area = document.getElementById("content")
     let code_area = document.getElementById("js_loading");
     current_lvl++;
+    if (document.getElementById("hint") != null) {
+        document.getElementById("hint").classList.toggle("hidden")
+    }
     if (current_lvl == 1) {
         main_area.innerHTML = `
         <div id="audio_controll"><button type="button" onclick="toggleAudio()" id="toggle_audio"><i class="fa-solid fa-volume"></i></button></div>
