@@ -701,10 +701,6 @@ function ai_click() {
 
 function next_level() {
     last_lvl_upd = Math.floor(Date.now() / 1000);
-    time = {
-        "min": 5,
-        "sec": 0
-    }
     let unnes = document.getElementById("unneccessary")
     let main_area = document.getElementById("content")
     let code_area = document.getElementById("js_loading");
@@ -714,6 +710,10 @@ function next_level() {
     }
 
     if (current_lvl == 1) {
+        time = {
+            "min": 4,
+            "sec": 0
+        }
         main_area.innerHTML = `
         <div id="audio_controll"><button type="button" onclick="toggleAudio()" id="toggle_audio"><i class="fa-solid fa-volume"></i></button></div>
         <div class="info">
@@ -732,6 +732,10 @@ function next_level() {
         </table>
         `;
     } else {
+        time = {
+            "min": 5,
+            "sec": 0
+        }
         var btns = document.getElementsByClassName("ai_button");
         for (let btn of btns) {
             btn.style.backgroundColor = "#8a2dfcfd";
