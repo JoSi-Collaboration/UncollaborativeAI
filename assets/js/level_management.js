@@ -246,21 +246,23 @@ levels = {
         }
         function OnClickFunction(){
             let now = Math.floor(Date.now() / 1000);
-            last_player_click = now;
+            last_player_click = Math.floor(Date.now() / 1000);;
             if (audio_enabled == true) {
                 var audio = new Audio('./assets/audio/click.wav');
                 audio.play();
             }
             if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
+                setTimeout(function() { AI_Level6(); }, 2000);
                 return
             } else {
                 next_level();
             }
-            setTimeout(function() { AI(); }, 2000);
+            setTimeout(function() { AI_Level6(); }, 2000);
         }
         function AI_Level6(){
             let now = Math.floor(Date.now() / 1000);
-            if (now - last_player_click>2){
+            console.log(now - last_player_click);
+            if (now - last_player_click>=2){
                 last_ai_click = Math.floor(Date.now() / 1000);
                 btn = document.getElementById('ai');
                 btn.style.backgroundColor = "green";
@@ -269,14 +271,7 @@ levels = {
                     btn.style.backgroundColor = "#8a2dfcfd";
                 })()
             }
-        }
-        var id = window.setInterval(function() {
-            if (current_lvl != 6) {
-                window.clearInterval(id);
-                return
-            }
-            AI_Level6();
-        }, 5000);`,
+        }`,
         "html": `<table class="full-wh nb" id="Start">
         <tr class="full-wh nb">
             <td class="half-w nb button-td">
