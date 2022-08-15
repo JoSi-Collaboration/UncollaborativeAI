@@ -124,6 +124,7 @@ levels = {
         var width =$(document).width();
         var x = 0;
         var y = 0;
+        var old_code = false;
         buttonpos = {"1":0,"2":0,"3":0,"4":0}
         getButtonY("1");
         getButtonY("2");
@@ -144,13 +145,23 @@ levels = {
         }
         
         function AI(){
-            //I think this would be the better code for the AI:
-            buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
-            var MaxValue = Math.max(buttons);
-            var ButtonIndex = buttons.indexOf(MaxValue);
             
+            buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
+            //I think this would be the better code for the AI:
+            if (!old_code){
+            var MaxValue = Math.max(...buttons);
+            console.log(MaxValue)
+            var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);
-            console.log(last_button)
+            }
+            else{
+            //This was the old code for the AI. It was way to easy.
+            var MaxValue = Math.min(...buttons);
+            console.log(buttons.indexOf(MaxValue));
+            var ButtonIndex = buttons.indexOf(MaxValue);
+            last_button = String(ButtonIndex+1);
+            //End Of Old Code
+            }
             last_ai_click = Math.floor(Date.now() / 1000);
             btn = document.getElementById("ai"+last_button);
             btn.style.backgroundColor = "green";
@@ -162,7 +173,8 @@ levels = {
             if (current_lvl == 5){
                 setTimeout(function() { AI(); }, 2000);
             }
-            //This was the old code for the AI. It was way to easy.
+            
+
         }
         function playerOnClick(buttonname){
             console.log(y, height);
