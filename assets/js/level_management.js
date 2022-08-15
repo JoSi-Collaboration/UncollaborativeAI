@@ -3,7 +3,7 @@ var last_ai_click = 0;
 var time_update = 0;
 var last_lvl_upd = 0;
 var audio_enabled = true;
-var words = ["Hallo"];
+var words = ["HELLO"];
 var word_KI_Trys_toWrite = [];
 var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -531,17 +531,20 @@ levels = {
         }
         var Word = words[Math.floor(Math.random() * words.length)];
         var RemoveTimer = 10;
-
+        Count = 0;
         var SavedLetters = "";
         var OtherLetters = "";
         var newLetter = "";
         var position = 0;
         var lastAccepted = 0;
+        var lastRemoved = 0;
         function letterGenerator(){
             position = Math.floor(Math.random() * characters.length);
             newLetter = characters.charAt(position);
             
             document.getElementById("letter").innerHTML = newLetter;
+            document.getElementById("text").innerHTML = SavedLetters + OtherLetters;
+            Count ++;
             if (SavedLetters+OtherLetters == Word){
                 next_level();
             }
@@ -554,7 +557,8 @@ levels = {
                     SavedLetters = SavedLetters.slice(0, -1);
                 }
             }
-            lastAccepted += 1
+            lastAccepted +=1;
+            lastRemoved +=1;
             AI_Level10(newLetter);
         }
         
@@ -562,17 +566,28 @@ levels = {
             if (lastAccepted<5){
                 return;
             }
+            if (SavedLetters.length + OtherLetters.length>Word.length +2){
+                return;
+            }
             if (lastAccepted>20){
                 OtherLetters += Letter
                 lastAccepted = 0;
                 return;
             }
-            if (Math.floor(Math.random() * 10) == 7){
+            if (Math.floor(Math.random() * 5) == 1){
                 OtherLetters += Letter
                 lastAccepted = 0;
                 return;
             }
-            
+            position = SavedLetters.length -1;
+            for (let i = OtherLetters.length-1; i > -1; i--) {
+                if (!Word.length<i+position){
+                    if (OtherLetters[i] == Word[i+position]){
+                        OtherLetters = OtherLetters.slice(0, i) + OtherLetters.slice(i+1);
+                    }
+                }
+                
+            }
         }
         function RemoveLetter(){
             if (OtherLetters == ""){
@@ -584,7 +599,8 @@ levels = {
             OtherLetters = OtherLetters.slice(0, -1);
         }
         function SaveLetter(){
-
+            SavedLetters += OtherLetters[0]
+            OtherLetters = OtherLetters.slice(1);
         }
         var id2 = window.setInterval(function() {
             if (current_lvl != 10) {
@@ -596,18 +612,20 @@ levels = {
         "html": `
         <div id="Start">
             <div id="lvl10-box">
+                <h1>Can you make the AI write HELLO</h1><br>
                 <h3 id="letter"></h3><br>
                 <h3 id="text"></h3>
             </div>
             <table class="full-wh nb">
                 <tr class="full-wh nb">
-                    
+
                     <td class="half-w nb button-td_lvl10">
                         <button type="button" class="player_button" id="ai">Remove Letter</button>
                     </td>
                     <td class="half-w nb button-td_lvl10">
                         <button type="button" class="player_button" onclick="">Lock Letter</button>
                     </td>
+
                 </tr>
             </table>
         </div>`,

@@ -1,15 +1,88 @@
 <script>
-    if (!old_code) {
-        var MaxValue = Math.max(...buttons);
-        console.log(MaxValue)
-        var ButtonIndex = buttons.indexOf(MaxValue);
-        last_button = String(ButtonIndex + 1);
-    } else {
-        //This was the old code for the AI. It was way to easy.
-        var MaxValue = Math.min(...buttons);
-        console.log(buttons.indexOf(MaxValue);)
-        var ButtonIndex = buttons.indexOf(MaxValue);
-        last_button = String(ButtonIndex + 1);
-        //End Of Old Code
+    element = document.getElementById("level5");
+    if (element != null) {
+        element.remove();
     }
+    var Word = words[Math.floor(Math.random() * words.length)];
+    var RemoveTimer = 10;
+
+    var SavedLetters = "";
+    var OtherLetters = "";
+    var newLetter = "";
+    var position = 0;
+    var lastAccepted = 0;
+    var lastRemoved = 0;
+
+    function letterGenerator() {
+        position = Math.floor(Math.random() * characters.length);
+        newLetter = characters.charAt(position);
+
+        document.getElementById("letter").innerHTML = newLetter;
+        if (SavedLetters + OtherLetters == Word) {
+            next_level();
+        }
+
+        RemoveTimer -= 1;
+        if (RemoveTimer == 0) {
+            RemoveTimer = 10;
+            if (SavedLetters.length != 0) {
+                OtherLetters = SavedLetters.slice(-1) + OtherLetters;
+                SavedLetters = SavedLetters.slice(0, -1);
+            }
+        }
+        lastAccepted += 1;
+        lastRemoved += 1;
+        AI_Level10(newLetter);
+    }
+
+    function AI_Level10(Letter) {
+        if (lastAccepted < 5) {
+            return;
+        }
+        if (SavedLetters.length + OtherLetters.length > Word.lenght + 3) {
+            return;
+        }
+        if (lastAccepted > 20) {
+            OtherLetters += Letter
+            lastAccepted = 0;
+            return;
+        }
+        if (Math.floor(Math.random() * 10) == 7) {
+            OtherLetters += Letter
+            lastAccepted = 0;
+            return;
+        }
+        position = SavedLetters.length - 1;
+        var removing = [];
+        for (let i = 0; i < OtherLetters.length; i++) {
+            if (Word.length < i + position) {
+                break;
+            }
+            if (OtherLetters[i] == Word[i + position]) {
+                removing.unshift(i);
+            }
+        }
+        removing.foreach(letpos OtherLetters = OtherLetters.slice(0, letpos - 1) + OtherLetters.slice(letpos));
+    }
+
+    function RemoveLetter() {
+        if (OtherLetters == "") {
+            if (SavedLetters == "") {
+                return;
+            }
+            SavedLetters = SavedLetters.slice(0, -1);
+        }
+        OtherLetters = OtherLetters.slice(0, -1);
+    }
+
+    function SaveLetter() {
+        SavedLetters += OtherLetters
+    }
+    var id2 = window.setInterval(function() {
+        if (current_lvl != 10) {
+            window.clearInterval(id2);
+            return
+        }
+        letterGenerator();
+    }, 200);
 </script>
