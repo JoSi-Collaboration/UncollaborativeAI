@@ -294,8 +294,7 @@ levels = {
     },
     "7": {
         "js": `
-        let last_player_click;
-        element = document.getElementById("level5");
+        element = document.getElementById("Start");
         if (element != null){
             element.remove();
         }
@@ -342,15 +341,50 @@ levels = {
     },
     "8": {
         "js": `
-        var id = window.setInterval(function() {
-            if (current_lvl != 1) {
-                window.clearInterval(id);
-                return
+        element = document.getElementById("Start");
+        if (element != null){
+            element.remove();
+        }
+        function OnClickFunction(){
+            let now = Math.floor(Date.now() / 1000);
+            last_player_click = Math.floor(Date.now() / 1000);;
+            if (audio_enabled == true) {
+                var audio = new Audio('./assets/audio/click.wav');
+                audio.play();
             }
-            ai_click();
-        }, 5000);`,
-        "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+            if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
+                var randomVaritation = Math.floor(Math.random() * 200);
+                setTimeout(function() { AI_Level6(); }, 2100 - randomVaritation);
+                return
+            } else {
+                next_level();
+            }
+            setTimeout(function() { AI_Level6(); }, 2000);
+        }
+        function AI_Level6(){
+            let now = Math.floor(Date.now() / 1000);
+            console.log(now - last_player_click);
+            if (now - last_player_click>=2){
+                last_ai_click = Math.floor(Date.now() / 1000);
+                btn = document.getElementById('ai');
+                btn.style.backgroundColor = "green";
+                (async() => {
+                    await new Promise(r => setTimeout(r, 300));
+                    btn.style.backgroundColor = "#8a2dfcfd";
+                })()
+            }
+        }`,
+        "html": `<table class="full-wh nb" id="Start">
+        <tr class="full-wh nb">
+            <td class="half-w nb button-td">
+                <button type="button" class="hidden ai_button" id="ai">Artificial intelligence</button>
+            </td>
+            <td class="half-w nb button-td">
+                <button type="button" class="hidden player_button" onclick="OnClickFunction()">Player</button>
+            </td>
+        </tr>
+    </table>`,
+        "tips": ["Who combined different Levels.", "I really liked Level 2 and 6"]
     },
     "9": {
         "js": `var id = window.setInterval(function() {
@@ -361,7 +395,7 @@ levels = {
             ai_click();
         }, 5000);`,
         "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+        "tips": ["This seems like an hidden input key. What does this acitiavate"]
     },
     "10": {
         "js": `var id = window.setInterval(function() {
