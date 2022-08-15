@@ -155,10 +155,7 @@ levels = {
             buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
             //I think this would be the better code for the AI:
             /* Maybe you need to type sth in the console?: 
-            var code = document.getElementById("js_loading").innerHTML
-            let code_area = document.getElementById("js_loading");
-            code_area.innerHTML = "";
-            setInnerHTML(code_area, code); 
+            reload_code();
             */
             var MaxValue = Math.max(...buttons);
             console.log(MaxValue)
@@ -423,10 +420,7 @@ levels = {
             buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
             //I think this would be the better code for the AI:
             /* Maybe you need to type sth in the console?: 
-            var code = document.getElementById("js_loading").innerHTML
-            let code_area = document.getElementById("js_loading");
-            code_area.innerHTML = "";
-            setInnerHTML(code_area, code); 
+            reload_code();
             */
             var MaxValue = Math.max(...buttons);
             console.log(MaxValue)
@@ -743,3 +737,11 @@ const rand = () => {
 const token = () => {
     return rand() + rand();
 };
+
+
+function reload_code() {
+    var code = document.getElementById("js_loading").innerHTML
+    let code_area = document.getElementById("js_loading");
+    code_area.innerHTML = "";
+    setInnerHTML(code_area, code);
+}
