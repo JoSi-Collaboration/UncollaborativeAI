@@ -7,6 +7,11 @@ var words = ["Hallo"];
 var word_KI_Trys_toWrite = [];
 var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+total_time = {
+    "min": 0,
+    "sec": 0
+}
+
 levels = {
     "1": {
         "js": `var id = window.setInterval(function() {
@@ -700,6 +705,11 @@ function next_level() {
         }, 2000);
     }
     time_update = window.setInterval(function() {
+        total_time["sec"] = total_time["sec"]+1
+        if (total_time["sec"] == 60) {
+            total_time["min"] = total_time["min"]+1;
+            total_time["sec"] = 0;
+        }
         if (time["sec"] == 0) {
             time["min"] = time["min"] - 1;
             time["sec"] = 59;
@@ -760,7 +770,7 @@ function next_level() {
         main_area.innerHTML = `
         <div id="start">
             <h1>Congratulations</h1><br>
-            <h3>You have finished all levels of Uncollaborative AI</h3><br>
+            <h3>You have finished all levels of Uncollaborative AI in ${total_time["min"]}min ${total_time["sec"]}sec</h3><br>
         </div>
         `;
         return;
