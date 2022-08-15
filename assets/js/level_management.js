@@ -74,7 +74,6 @@ levels = {
         }
         function Run_AI(){
             timeout = Math.floor(Math.random() * 200)
-            console.log(AICounter);
             last_button = String(Math.floor(Math.random() * 4)+1);
             if (PlayerCounter>5 && AICounter%4 == 0){
                 last_button = "1"
@@ -102,7 +101,6 @@ levels = {
                 await new Promise(r => setTimeout(r, 300));
                 btn.style.backgroundColor = "#8a2dfcfd";
             })()
-            //console.log(last_ai_click);
             if (current_lvl == 4){
                 setTimeout(function() { Run_AI(); }, 2100 - timeout);
             }
@@ -154,10 +152,9 @@ levels = {
                 var rect = element.getBoundingClientRect();
                 x = rect.top;
                 buttonpos[String(number)] = x;
-                console.log(buttonpos);
+                (buttonpos);
             }
             else {
-                console.log("Waiting");
                 if (current_lvl == 5) {
                     setTimeout(function() {getButtonY(number); }, 500);
                 }
@@ -172,12 +169,10 @@ levels = {
             reload_code();
             */
             var MaxValue = Math.max(...buttons);
-            console.log(MaxValue)
             var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);
             //This was the old code for the AI. It was way to easy.
             /*var MaxValue = Math.min(...buttons);
-            console.log(buttons.indexOf(MaxValue));
             var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);*/
             //End Of Old Code
@@ -188,7 +183,6 @@ levels = {
                 await new Promise(r => setTimeout(r, 300));
                 btn.style.backgroundColor = "#8a2dfcfd";
             })()
-            //console.log(last_ai_click);
             if (current_lvl == 5){
                 setTimeout(function() { AI(); }, 2000);
             }
@@ -196,7 +190,6 @@ levels = {
 
         }
         function playerOnClick(buttonname){
-            console.log(y, height);
             element = document.getElementById("player"+buttonname);
             
             PlayerCounter ++;
@@ -280,7 +273,6 @@ levels = {
         }
         function AI_Level6(){
             let now = Math.floor(Date.now() / 1000);
-            console.log(now - last_player_click);
             if (now - last_player_click>=2){
                 last_ai_click = Math.floor(Date.now() / 1000);
                 btn = document.getElementById('ai');
@@ -332,7 +324,6 @@ levels = {
         }
         function AI_Level6(){
             let now = Math.floor(Date.now() / 1000);
-            console.log(now - last_player_click);
             if (now - last_player_click>=2){
                 last_ai_click = Math.floor(Date.now() / 1000);
                 btn = document.getElementById('ai');
@@ -379,7 +370,6 @@ levels = {
         }
         function AI_Level6(){
             let now = Math.floor(Date.now() / 1000);
-            console.log(now - last_player_click);
             if (now - last_player_click>=2){
                 last_ai_click = Math.floor(Date.now() / 1000);
                 btn = document.getElementById('ai');
@@ -424,10 +414,8 @@ levels = {
                 var rect = element.getBoundingClientRect();
                 x = rect.top;
                 buttonpos[String(number)] = x;
-                console.log(buttonpos);
             }
             else {
-                console.log("Waiting");
                 if (current_lvl == 5) {
                     setTimeout(function() {getButtonY(number); }, 500);
                 }
@@ -442,12 +430,10 @@ levels = {
             reload_code();
             */
             var MaxValue = Math.max(...buttons);
-            console.log(MaxValue)
             var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);
             //This was the old code for the AI. It was way to easy.
             /*var MaxValue = Math.min(...buttons);
-            console.log(buttons.indexOf(MaxValue));
             var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);*/
             //End Of Old Code
@@ -458,7 +444,6 @@ levels = {
                 await new Promise(r => setTimeout(r, 300));
                 btn.style.backgroundColor = "#8a2dfcfd";
             })()
-            //console.log(last_ai_click);
             if (current_lvl == 5){
                 setTimeout(function() { AI(); }, 2000);
             }
@@ -466,7 +451,6 @@ levels = {
 
         }
         function playerOnClick(buttonname){
-            console.log(y, height);
             element = document.getElementById("player"+buttonname);
             
             PlayerCounter ++;
@@ -571,13 +555,11 @@ levels = {
             var LetterAtPos = Word[index];
 
             var influence = Math.floor((sigmoid(Count/100)-offset)*26);
-            console.log("Inf",influence)
             position = Math.floor(Math.random() * characters.length + influence);
             if (position<characters.length){
                 
             }
             else{
-                console.log("Index",index)
                 position = characters.indexOf(LetterAtPos);
             }
             newLetter = characters.charAt(position);
@@ -624,7 +606,6 @@ levels = {
                 return;
             }
             position = SavedLetters.length;
-            console.log(position)
             for (let i = OtherLetters.length; i > -1; i--) {
                 if (Word.length>i+position){
                     if (OtherLetters[i] == Word[i+position]){
