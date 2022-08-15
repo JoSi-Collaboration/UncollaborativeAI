@@ -543,12 +543,36 @@ levels = {
         var position = 0;
         var lastAccepted = 0;
         var lastRemoved = 0;
+        function sigmoid(x){
+            var e = Math.E;
+            return 1/(1 + Math.pow(e,-x));
+            
+        }
+        var offset = sigmoid(0);
         function letterGenerator(){
-            position = Math.floor(Math.random() * characters.length);
+            index = OtherLetters.length + SavedLetters.length;
+            if (index<0){
+                index = 0;
+            }
+            if (index>=Word.length){
+                index = Word.length -1;
+            }
+            var LetterAtPos = Word[index];
+
+            var influence = Math.floor((sigmoid(Count/100)-offset)*26);
+            console.log("Inf",influence)
+            position = Math.floor(Math.random() * characters.length + influence);
+            if (position<characters.length){
+                
+            }
+            else{
+                console.log("Index",index)
+                position = characters.indexOf(LetterAtPos);
+            }
             newLetter = characters.charAt(position);
             
             document.getElementById("letter").innerHTML = newLetter;
-            document.getElementById("text").innerHTML = SavedLetters + OtherLetters;
+            document.getElementById("text").innerHTML = SavedLetters + "   " +OtherLetters;
             Count ++;
             if (SavedLetters+OtherLetters == Word){
                 next_level();
@@ -556,7 +580,7 @@ levels = {
 
             RemoveTimer -= 1;
             if (RemoveTimer == 0){
-                RemoveTimer = 10;
+                RemoveTimer = 50;
                 if (SavedLetters.length != 0){
                     OtherLetters = SavedLetters.slice(-1) + OtherLetters;
                     SavedLetters = SavedLetters.slice(0, -1);
@@ -571,7 +595,7 @@ levels = {
             if (lastAccepted<5){
                 return;
             }
-            if (SavedLetters.length + OtherLetters.length>Word.length +2){
+            if (SavedLetters.length + OtherLetters.length>Word.length){
                 return;
             }
             if (lastAccepted>20){
@@ -584,9 +608,13 @@ levels = {
                 lastAccepted = 0;
                 return;
             }
-            position = SavedLetters.length -1;
-            for (let i = OtherLetters.length-1; i > -1; i--) {
-                if (!Word.length<i+position){
+            if (lastAccepted<10){
+                return;
+            }
+            position = SavedLetters.length;
+            console.log(position)
+            for (let i = OtherLetters.length; i > -1; i--) {
+                if (Word.length>i+position){
                     if (OtherLetters[i] == Word[i+position]){
                         OtherLetters = OtherLetters.slice(0, i) + OtherLetters.slice(i+1);
                     }
@@ -604,6 +632,9 @@ levels = {
             OtherLetters = OtherLetters.slice(0, -1);
         }
         function SaveLetter(){
+            if (OtherLetters.length == 0){
+                return;
+            }
             SavedLetters += OtherLetters[0]
             OtherLetters = OtherLetters.slice(1);
         }
