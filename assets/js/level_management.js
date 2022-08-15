@@ -119,7 +119,11 @@ levels = {
     },
     "5": {
         "js": `
-        document.getElementById("level4").remove();
+        
+        element = document.getElementById("level4");
+        if (element != null){
+            element.remove();
+        }
         var height = $(document).height();
         var width =$(document).width();
         var x = 0;
@@ -148,20 +152,21 @@ levels = {
             
             buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
             //I think this would be the better code for the AI:
-            if (!old_code){
+            /* Who uses var code = document.getElementById("js_loading").innerHTML
+            let code_area = document.getElementById("js_loading");
+            code_area.innerHTML = "";
+            setInnerHTML(code_area, code); 
+            */
             var MaxValue = Math.max(...buttons);
             console.log(MaxValue)
             var ButtonIndex = buttons.indexOf(MaxValue);
             last_button = String(ButtonIndex+1);
-            }
-            else{
             //This was the old code for the AI. It was way to easy.
-            var MaxValue = Math.min(...buttons);
+            /*var MaxValue = Math.min(...buttons);
             console.log(buttons.indexOf(MaxValue));
             var ButtonIndex = buttons.indexOf(MaxValue);
-            last_button = String(ButtonIndex+1);
+            last_button = String(ButtonIndex+1);*/
             //End Of Old Code
-            }
             last_ai_click = Math.floor(Date.now() / 1000);
             btn = document.getElementById("ai"+last_button);
             btn.style.backgroundColor = "green";
