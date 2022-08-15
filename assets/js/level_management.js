@@ -120,7 +120,6 @@ levels = {
     },
     "5": {
         "js": `
-        
         element = document.getElementById("level4");
         if (element != null){
             element.remove();
@@ -203,7 +202,7 @@ levels = {
         }
 
         var id = window.setInterval(function() {
-            if (current_lvl != 1) {
+            if (current_lvl != 5) {
                 window.clearInterval(id);
                 return
             }
@@ -236,7 +235,7 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["Who changed the AI function?", "Comments in the code should be used as help to understand the code"]
+        "tips": ["Who changed the AI function?", "Comments in the code should be used as help to understand the code", "Maybe it would help you to switch to an older version of the code!"]
     },
     "6": {
         "js": `
@@ -388,14 +387,139 @@ levels = {
         "tips": ["Who combined different Levels.", "I really liked Level 2 and 6"]
     },
     "9": {
-        "js": `var id = window.setInterval(function() {
-            if (current_lvl != 1) {
-                window.clearInterval(id);
-                return
+        "js": `
+        element = document.getElementById("Start");
+        if (element != null) {
+            element.remove();
+        }
+        var height = $(document).height();
+        var width =$(document).width();
+        var x = 0;
+        var y = 0;
+        var old_code = false;
+        buttonpos = {"1":0,"2":0,"3":0,"4":0}
+        getButtonY("1");
+        getButtonY("2");
+        getButtonY("3");
+        getButtonY("4");
+        function getButtonY(number){
+            element = document.getElementById("player"+String(number))
+            if (typeof element === 'object' && element !== null && 'getBoundingClientRect' in element) {
+                var rect = element.getBoundingClientRect();
+                x = rect.top;
+                buttonpos[String(number)] = x;
+                console.log(buttonpos);
             }
-            ai_click();
-        }, 5000);`,
-        "html": "",
+            else {
+                console.log("Waiting");
+                if (current_lvl == 5) {
+                    setTimeout(function() {getButtonY(number); }, 500);
+                }
+            }
+        }
+        
+        function AI(){
+            
+            buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
+            //I think this would be the better code for the AI:
+            /* Maybe you need to type sth in the console?: 
+            var code = document.getElementById("js_loading").innerHTML
+            let code_area = document.getElementById("js_loading");
+            code_area.innerHTML = "";
+            setInnerHTML(code_area, code); 
+            */
+            var MaxValue = Math.max(...buttons);
+            console.log(MaxValue)
+            var ButtonIndex = buttons.indexOf(MaxValue);
+            last_button = String(ButtonIndex+1);
+            //This was the old code for the AI. It was way to easy.
+            /*var MaxValue = Math.min(...buttons);
+            console.log(buttons.indexOf(MaxValue));
+            var ButtonIndex = buttons.indexOf(MaxValue);
+            last_button = String(ButtonIndex+1);*/
+            //End Of Old Code
+            last_ai_click = Math.floor(Date.now() / 1000);
+            btn = document.getElementById("ai"+last_button);
+            btn.style.backgroundColor = "green";
+            (async() => {
+                await new Promise(r => setTimeout(r, 300));
+                btn.style.backgroundColor = "#8a2dfcfd";
+            })()
+            //console.log(last_ai_click);
+            if (current_lvl == 5){
+                setTimeout(function() { AI(); }, 2000);
+            }
+            
+
+        }
+        function playerOnClick(buttonname){
+            console.log(y, height);
+            element = document.getElementById("player"+buttonname);
+            
+            PlayerCounter ++;
+            let now = Math.floor(Date.now() / 1000);
+            if (audio_enabled==true) {
+                var audio = new Audio('./assets/audio/click.wav');
+                audio.play();
+            }
+            if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3 || buttonname != last_button) {
+                return
+            } else {
+                next_level();
+            }
+        }
+
+        const gen_token = token();
+        document.getElementById("key").innerHTML = gen_token;
+        var started = false;
+        console.log(token)
+        function StartAI(key) {
+            if (started) {
+                return "AI already started";
+            }
+            if (key==gen_token) {
+                var id = window.setInterval(function() {
+                    if (current_lvl != 9) {
+                        window.clearInterval(id);
+                        return;
+                    }
+                    AI();
+                }, 2000);
+                console.log("AI started");
+                started = !started;
+            } else {
+                console.log("Invalid token");
+            }
+        }
+
+        function mousemove(event){
+            x = event.pageX 
+            y = event.pageY   
+        }
+        setTimeout(function() { AI(); }, 2100 - timeout);
+        window.addEventListener('mousemove', mousemove);
+        `,
+        "html": `<div id="level5">
+        <p class="hidden">I think you need the following key to start the AI</p>
+        <p class="hidden" id="key"></p>
+        <table class="full-wh nb">
+            <tr class="full-wh nb">
+                    <td class="half-w nb button-td">
+                        <button type="button" class="ai_button" id="ai1">AI</button> 
+                        <button type="button" class="player_button" id="player1" onclick="playerOnClick('1');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai2">AI</button> 
+                        <button type="button" class="player_button" id="player2" onclick="playerOnClick('2');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai3">AI</button> 
+                        <button type="button" class="player_button" id="player3" onclick="playerOnClick('3');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai4">AI</button> 
+                        <button type="button" class="player_button" id="player4" onclick="playerOnClick('4');">Player</button> 
+                    </td>
+            </tr>
+        </table>
+        </div>`,
         "tips": ["This seems like an hidden input key. What does this acitiavate"]
     },
     "10": {
@@ -598,10 +722,9 @@ function next_level() {
     document.getElementById("cur_lvl").innerHTML = current_lvl;
     js = levels[String(current_lvl)]["js"];
     html = levels[String(current_lvl)]["html"];
-    setInnerHTML(code_area, `<script>${js}</script>`);
-    /*const lines = str.split(/\r\n|\r|\n/);*/
     unnes.innerHTML = `${unnes.innerHTML}
     ${html}`;
+    setInnerHTML(code_area, `<script>${js}</script>`);
 }
 
 function toggleAudio() {
@@ -612,3 +735,11 @@ function toggleAudio() {
         document.getElementById("toggle_audio").innerHTML = '<i class="fa-solid fa-volume-slash"></i>';
     }
 }
+
+const rand = () => {
+    return Math.random().toString(36).substr(2);
+};
+
+const token = () => {
+    return rand() + rand();
+};
