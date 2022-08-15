@@ -565,9 +565,11 @@ levels = {
             else{
                 position = characters.indexOf(LetterAtPos);
             }
-            newLetter = characters.charAt(position);
+            /*newLetter = characters.charAt(position);*/
+            newLetter = characters[Math.floor(Math.random() * characters.length)];
             
             document.getElementById("letter").innerHTML = newLetter;
+            console.log(newLetter);
             document.getElementById("locked").innerHTML = SavedLetters;
             document.getElementById("not_locked").innerHTML = OtherLetters;
             Count ++;
