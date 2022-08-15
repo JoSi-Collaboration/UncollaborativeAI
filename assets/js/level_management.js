@@ -45,14 +45,15 @@ levels = {
         document.getElementById("Start").remove();
 
         function playerOnClick(buttonname){
-            console.log("Working");
             PlayerCounter ++;
             let now = Math.floor(Date.now() / 1000);
-            
+            if (audio_enabled==true) {
+                var audio = new Audio('./assets/audio/click.wav');
+                audio.play();
+            }
             if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3 || buttonname != last_button) {
                 return
             } else {
-                console.log("Loading next Level");
                 next_level();
             }
         }

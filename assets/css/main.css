@@ -130,7 +130,7 @@ canvas{
 .hint_notif {
     position: absolute;
     top: 0px;
-    left: 10%;
+    left: 17%;
     background-color: green;
     text-align: center;
     color: #000000;
@@ -141,15 +141,16 @@ canvas{
     position: absolute;
     top: 5px;
     right: 7px;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 #toggle_audio {
+    color: rgba(255, 255, 255, 0.3);
     font-size: xx-large;
     border: 0;
     background-color: #00000000;
 }
 
 #toggle_audio:hover {
+    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
 }
