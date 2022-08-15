@@ -88,14 +88,15 @@ levels = {
                 btn.style.backgroundColor = "#8a2dfcfd";
             })()
             //console.log(last_ai_click);
-
-            setTimeout(function() { Run_AI(); }, 2100 - timeout);
+            if (current_lvl == 4){
+                setTimeout(function() { Run_AI(); }, 2100 - timeout);
+            }
             
         }
         setTimeout(function() { Run_AI(); }, 100);
         `,
         "html": `
-        <div id="Start">
+        <div id="level4">
         <table class="full-wh nb">
             <tr class="full-wh nb">
                     <td class="half-w nb button-td">
@@ -114,7 +115,162 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["Maybe try and the AI will learn to help you"]
+        "tips": ["Maybe the AI is at some point to bored to select randomly?"]
+    },
+    "5": {
+        "js": `
+        document.getElementById("level4").remove();
+        var height = $(document).height();
+        var width =$(document).width();
+        var x = 0;
+        var y = 0;
+        buttonpos = {"1":0,"2":0,"3":0,"4":0}
+        getButtonY("1");
+        getButtonY("2");
+        getButtonY("3");
+        getButtonY("4");
+        function getButtonY(number){
+            element = document.getElementById("player"+String(number))
+            if (typeof element === 'object' && element !== null && 'getBoundingClientRect' in element) {
+                var rect = element.getBoundingClientRect();
+                x = rect.top;
+                buttonpos[String(number)] = x;
+                console.log(buttonpos);
+            }
+            else {
+                console.log("Waiting");
+                setTimeout(function() {getButtonY(number); }, 500);
+            }
+        }
+        
+        function AI(){
+            //I think this would be the better code for the AI:
+            buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
+            var MaxValue = Math.max(buttons);
+            var ButtonIndex = buttons.indexOf(MaxValue);
+            
+            last_button = String(ButtonIndex+1);
+            console.log(last_button)
+            last_ai_click = Math.floor(Date.now() / 1000);
+            btn = document.getElementById("ai"+last_button);
+            btn.style.backgroundColor = "green";
+            (async() => {
+                await new Promise(r => setTimeout(r, 300));
+                btn.style.backgroundColor = "#8a2dfcfd";
+            })()
+            //console.log(last_ai_click);
+            if (current_lvl == 5){
+                setTimeout(function() { AI(); }, 2000);
+            }
+            //This was the old code for the AI. It was way to easy.
+        }
+        function playerOnClick(buttonname){
+            console.log(y, height);
+            element = document.getElementById("player"+buttonname);
+            
+            PlayerCounter ++;
+            let now = Math.floor(Date.now() / 1000);
+            if (audio_enabled==true) {
+                var audio = new Audio('./assets/audio/click.wav');
+                audio.play();
+            }
+            if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3 || buttonname != last_button) {
+                return
+            } else {
+                next_level();
+            }
+        }
+
+        var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            AI();
+        }, 5000);
+
+        function mousemove(event){
+            x = event.pageX 
+            y = event.pageY   
+        }
+        setTimeout(function() { AI(); }, 2100 - timeout);
+        window.addEventListener('mousemove', mousemove);
+        `,
+        "html": `<div id="level5">
+        <table class="full-wh nb">
+            <tr class="full-wh nb">
+                    <td class="half-w nb button-td">
+                        <button type="button" class="ai_button" id="ai1">AI</button> 
+                        <button type="button" class="player_button" id="player1" onclick="playerOnClick('1');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai2">AI</button> 
+                        <button type="button" class="player_button" id="player2" onclick="playerOnClick('2');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai3">AI</button> 
+                        <button type="button" class="player_button" id="player3" onclick="playerOnClick('3');">Player</button> 
+                        <br>
+                        <button type="button" class="ai_button" id="ai4">AI</button> 
+                        <button type="button" class="player_button" id="player4" onclick="playerOnClick('4');">Player</button> 
+                    </td>
+            </tr>
+        </table>
+        </div>`,
+        "tips": ["Who changed the AI function?", "Comments in the code should be used as help to understand the code"]
+    },
+    "6": {
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            ai_click();
+        }, 5000);`,
+        "html": "",
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+    },
+    "7": {
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            ai_click();
+        }, 5000);`,
+        "html": "",
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+    },
+    "8": {
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            ai_click();
+        }, 5000);`,
+        "html": "",
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+    },
+    "9": {
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            ai_click();
+        }, 5000);`,
+        "html": "",
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+    },
+    "10": {
+        "js": `var id = window.setInterval(function() {
+            if (current_lvl != 1) {
+                window.clearInterval(id);
+                return
+            }
+            ai_click();
+        }, 5000);`,
+        "html": "",
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
     }
 };
 
@@ -131,7 +287,7 @@ var setInnerHTML = function(elm, html) {
 
 function player_click() {
     let now = Math.floor(Date.now() / 1000);
-    if (audio_enabled==true) {
+    if (audio_enabled == true) {
         var audio = new Audio('./assets/audio/click.wav');
         audio.play();
     }
@@ -225,7 +381,7 @@ function next_level() {
         if (time["sec"] == 0 && time["min"] == 0) {
             code_area.innerHTML = "";
             unnes.innerHTML = "";
-            if (audio_enabled==true) {
+            if (audio_enabled == true) {
                 var audio = new Audio('./assets/audio/game-over.wav');
                 audio.play();
             }
@@ -243,7 +399,7 @@ function next_level() {
         current_lvl = current_lvl - 1;
         code_area.innerHTML = "";
         unnes.innerHTML = "";
-        if (audio_enabled==true) {
+        if (audio_enabled == true) {
             var audio = new Audio('./assets/audio/all-lvl-compl.wav');
             audio.play();
         }
@@ -260,7 +416,7 @@ function next_level() {
         `;
         return;
     } else if (current_lvl != 1) {
-        if (audio_enabled==true) {
+        if (audio_enabled == true) {
             var audio = new Audio('./assets/audio/next-lvl.wav');
             audio.play();
         }
