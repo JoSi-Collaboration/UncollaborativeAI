@@ -21,7 +21,7 @@ levels = {
         "html": `
             <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();")>Start AI</button> 
         `,
-        "tips": ["You need to find the hidden button to enable the AI.", "Maybe you may need to change the code"]
+        "tips": ["In some Browsers for example Chrome you can change the code of the website.", "You need to find the hidden button to enable the AI.", "Maybe you may need to change the code"]
     },
     "3": {
         "js": `var ai_started = false;
@@ -144,7 +144,9 @@ levels = {
             }
             else {
                 console.log("Waiting");
-                setTimeout(function() {getButtonY(number); }, 500);
+                if (current_lvl == 5) {
+                    setTimeout(function() {getButtonY(number); }, 500);
+                }
             }
         }
         
@@ -152,7 +154,8 @@ levels = {
             
             buttons = [Math.abs(buttonpos["1"] - y),Math.abs(buttonpos["2"] - y),Math.abs(buttonpos["3"] - y),Math.abs(buttonpos["4"] - y)];
             //I think this would be the better code for the AI:
-            /* Who uses var code = document.getElementById("js_loading").innerHTML
+            /* Maybe you need to type sth in the console?: 
+            var code = document.getElementById("js_loading").innerHTML
             let code_area = document.getElementById("js_loading");
             code_area.innerHTML = "";
             setInnerHTML(code_area, code); 
@@ -235,18 +238,60 @@ levels = {
         "tips": ["Who changed the AI function?", "Comments in the code should be used as help to understand the code"]
     },
     "6": {
-        "js": `var id = window.setInterval(function() {
-            if (current_lvl != 1) {
+        "js": `
+        let last_player_click;
+        element = document.getElementById("level5");
+        if (element != null){
+            element.remove();
+        }
+        function OnClickFunction(){
+            let now = Math.floor(Date.now() / 1000);
+            last_player_click = now;
+            if (audio_enabled == true) {
+                var audio = new Audio('./assets/audio/click.wav');
+                audio.play();
+            }
+            if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
+                return
+            } else {
+                next_level();
+            }
+            setTimeout(function() { AI(); }, 2000);
+        }
+        function AI_Level6(){
+            let now = Math.floor(Date.now() / 1000);
+            if (now - last_player_click>2){
+                last_ai_click = Math.floor(Date.now() / 1000);
+                btn = document.getElementById('ai');
+                btn.style.backgroundColor = "green";
+                (async() => {
+                    await new Promise(r => setTimeout(r, 300));
+                    btn.style.backgroundColor = "#8a2dfcfd";
+                })()
+            }
+        }
+        var id = window.setInterval(function() {
+            if (current_lvl != 6) {
                 window.clearInterval(id);
                 return
             }
-            ai_click();
+            AI_Level6();
         }, 5000);`,
-        "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+        "html": `<table class="full-wh nb" id="Start">
+        <tr class="full-wh nb">
+            <td class="half-w nb button-td">
+                <button type="button" class="ai_button" id="ai">Artificial intelligence</button>
+            </td>
+            <td class="half-w nb button-td">
+                <button type="button" class="player_button" onclick="OnClickFunction()">Player</button>
+            </td>
+        </tr>
+    </table>`,
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "The AI tryies to avoid you maybe pause 2 seconds.", "The AI clicks, exactly 2 seconds after you last click."]
     },
     "7": {
-        "js": `var id = window.setInterval(function() {
+        "js": `
+        var id = window.setInterval(function() {
             if (current_lvl != 1) {
                 window.clearInterval(id);
                 return
@@ -338,6 +383,7 @@ function next_level() {
     if (document.getElementById("hint") != null) {
         document.getElementById("hint").classList.toggle("hidden")
     }
+
     if (current_lvl == 1) {
         main_area.innerHTML = `
         <div id="audio_controll"><button type="button" onclick="toggleAudio()" id="toggle_audio"><i class="fa-solid fa-volume"></i></button></div>
