@@ -3,7 +3,7 @@ var last_ai_click = 0;
 var time_update = 0;
 var last_lvl_upd = 0;
 var audio_enabled = true;
-var words = ["HELLO"];
+var words = ["HELLO", ""];
 var word_KI_Trys_toWrite = [];
 var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -544,7 +544,8 @@ levels = {
         if (element != null) {
             element.remove();
         }
-        var Word = words[Math.floor(Math.random() * words.length)];
+        /*var Word = words[Math.floor(Math.random() * words.length)];+*/
+        var Word = "Hello";
         var RemoveTimer = 10;
         Count = 0;
         var SavedLetters = "";
@@ -582,7 +583,8 @@ levels = {
             newLetter = characters.charAt(position);
             
             document.getElementById("letter").innerHTML = newLetter;
-            document.getElementById("text").innerHTML = SavedLetters + "   " +OtherLetters;
+            document.getElementById("locked").innerHTML = SavedLetters;
+            document.getElementById("not_locked").innerHTML = OtherLetters;
             Count ++;
             if (SavedLetters+OtherLetters == Word){
                 next_level();
@@ -658,9 +660,9 @@ levels = {
         "html": `
         <div id="Start">
             <div id="lvl10-box">
-                <h1>Can you make the AI write HELLO</h1><br>
-                <h3 id="letter"></h3><br>
-                <h3 id="text"></h3>
+                <h1>Can you write HELLO out of the letters the AI writes?</h1><br>
+                <h3 id="letter" class="big"></h3><br>
+                <span id="locked" class="big"></span><span style="margin-right:10px;"></span><span id="not_locked" class="big"></span>
             </div>
             <table class="full-wh nb">
                 <tr class="full-wh nb">
@@ -675,7 +677,7 @@ levels = {
                 </tr>
             </table>
         </div>`,
-        "tips": ["The AI is writing. You can just block letters from being deleted by the AI and delete the last letter added.", ""]
+        "tips": ["The AI is writing. You need to form the word Hello from the letters it is writing", "I think the AI is removing the letters you need. But you can lock letters so that the AI can't delete them. But sometimes the AI unlocks letters. So be carefull", "All underlined letters are locked", "If a new letter is added but you don't need it, delete it. If it is the right letter, lock it."]
     }
 };
 

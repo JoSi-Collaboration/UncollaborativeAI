@@ -186,3 +186,11 @@ canvas{
     font-size: larger;
     padding-top: 5%;
 }
+
+.big {
+    font-size: xx-large;
+}
+
+#locked {
+    text-decoration: underline #CF6679 solid;
+}
