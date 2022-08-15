@@ -17,14 +17,14 @@ levels = {
             ai_click();
         }, 5000);`,
         "html": "",
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "The AI presses the button every 5 seconds", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
     },
     "2": {
         "js": ``,
         "html": `
             <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();")>Start AI</button> 
         `,
-        "tips": ["In some Browsers for example Chrome you can change the code of the website.", "You need to find the hidden button to enable the AI.", "Maybe you may need to change the code"]
+        "tips": ["In most browsers you can change the code of the website.", "You need to find the hidden button to enable the AI.", "It's funny to hide things in the part which seems to be 'unneccessary'", "I think you need to remove the 'hidden' class from the button"]
     },
     "3": {
         "js": `var ai_started = false;
@@ -39,7 +39,7 @@ levels = {
             }
         }`,
         "html": ``,
-        "tips": ["Who designed this code. That's really easy to hack.", "In Javascript there is something called a function. But I don't know if this helps you to Start(the)AI", "You can access the console by right-clicking and then clicking inspect. Somewhere there you should be able to get access to a console"]
+        "tips": ["You need to start the AI. But this time It isn't a button", "In Javascript there is something called a function. But I don't know if this helps you to Start(the)AI", "You can access the console by right-clicking and then clicking inspect. Somewhere there you should be able to get access to a console"]
     },
     "4": {
         "js": `
@@ -118,7 +118,7 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["React quickly!!", "Maybe the AI is at some point to bored to select randomly?"]
+        "tips": ["React quickly!!", "Maybe the AI is at some point to bored to select randomly?", "I think some buttons are getting disabled with the time…", "At some point, it will only be one button left which is clicked by the AI"]
     },
     "5": {
         "js": `
@@ -234,7 +234,7 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["Who changed the AI function?", "Comments in the code should be used as help to understand the code", "Maybe it would help you to switch to an older version of the code!"]
+        "tips": ["The AI don't want to collaborate with you. It always presses a button which isn't near to your cursor. ", "Comments in the code should be used as help to understand the code", "Maybe it would help you to switch to an older version of the code!", "You can reload the code if you changed it by using reload_code() in the console"]
     },
     "6": {
         "js": `
@@ -289,10 +289,11 @@ levels = {
             </td>
         </tr>
     </table>`,
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "The AI tryies to avoid you maybe pause 2 seconds.", "The AI clicks, exactly 2 seconds after you last click."]
+        "tips": ["Maybe you should wait a little bit after clicking your button", "The AI tryies to avoid you maybe pause a few seconds.", "I think the AI always clicks a bit after you", "The AI clicks exactly 2 seconds after your last click."]
     },
     "7": {
         "js": `
+        var random = true;
         element = document.getElementById("Start");
         if (element != null){
             element.remove();
@@ -305,7 +306,11 @@ levels = {
                 audio.play();
             }
             if (now - last_ai_click > 0.3 || now - last_lvl_upd < 0.3) {
-                var randomVaritation = Math.floor(Math.random() * 200);
+                if (random) {
+                    var randomVaritation = Math.floor(Math.random() * 200);
+                } else {
+                    randomVaritation = 0
+                }
                 setTimeout(function() { AI_Level6(); }, 2100 - randomVaritation);
                 return
             } else {
@@ -336,7 +341,7 @@ levels = {
             </td>
         </tr>
     </table>`,
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "The AI tryies to avoid you maybe pause 2 seconds.", "The AI clicks, exactly 2 seconds after you last click."]
+        "tips": ["Oh these lazy devs! This level is so similar to level 6…", "I think the AI always clicks a bit after you. But the time seems to be random", "I think you can disable the random timing… I have seen a variable for that somewhere", "I think random=false; should disable the random timing!"]
     },
     "8": {
         "js": `
@@ -383,7 +388,7 @@ levels = {
             </td>
         </tr>
     </table>`,
-        "tips": ["Who combined different Levels.", "I really liked Level 2 and 6"]
+        "tips": ["I think there are different levels combined here", "I really liked Levels 2 and 6", "I don't see any buttons here. Maybe you need to make them visible", "The AI clicks 2 seconds after your last click. Again…"]
     },
     "9": {
         "js": `
@@ -516,7 +521,7 @@ levels = {
             </tr>
         </table>
         </div>`,
-        "tips": ["This seems like an hidden input key. What does this acitiavate"]
+        "tips": ["Hm, I think I have seen a key somewhere in the code. I wonder what you can activate with it", "I have checked the code for you. I have found the function StartAI(), but it needs a key! I hope you have the key…", "If you have activated the AI it would help you if an old version would run. I think there are some comments about that in the code", "You can find the code in the json_loading div. Change it to the old version and then run reload_code() in the console!"]
     },
     "10": {
         "js": `
@@ -699,7 +704,11 @@ function next_level() {
             if (time["min"] != 4) {
                 hint_dict = { 3: 0, 2: 1, 1: 2, 0: 3 }
                 if (levels[String(current_lvl)]["tips"][hint_dict[time["min"]]] != undefined) {
-                    main_area.innerHTML += `<span class="hint_notif" id="hint"><img src="assets/image/robot.png" width=100 style="float:left;"><div class="arrow-left"></div><div class="speech-bubble">HINT: ${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</div></span>`;
+                    if (audio_enabled == true) {
+                        var audio = new Audio('./assets/audio/hint.wav');
+                        audio.play();
+                    }
+                    main_area.innerHTML += `<span class="hint_notif" id="hint"><img src="assets/image/robot.png" width=100 style="float:left;"><div class="arrow-left"></div><div class="speech-bubble">${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</div></span>`;
                     var times_run = 0;
                     var remove_hint = window.setInterval(function() {
                         if (times_run == 0) {
