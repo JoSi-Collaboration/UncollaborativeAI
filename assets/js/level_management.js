@@ -27,12 +27,17 @@ levels = {
     "2": {
         "js": ``,
         "html": `
-            <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();")>Start AI</button> 
+            <div id="lvl2-3">
+                AI: <span id="state">disabled</span>
+            </div>
+            <button type="button" class="hidden player_button" id="aienable" onclick="var id = window.setInterval(function() {if (current_lvl != 2) {window.clearInterval(id);return;};ai_click();}, 5000);document.getElementById('aienable').remove();document.getElementById('state').innerHTML = 'Enabled';")>Start AI</button> 
         `,
         "tips": ["In most browsers you can change the code of the website.", "You need to find the hidden button to enable the AI.", "It's funny to hide things in the part which seems to be 'unneccessary'", "I think you need to remove the 'hidden' class from the button"]
     },
     "3": {
-        "js": `var ai_started = false;
+        "js": `
+        document.getElementById('state').innerHTML = 'Disabled';
+        var ai_started = false;
         function StartAI(){
             if (ai_started==true) {
                 console.log("AI already started!");
@@ -41,6 +46,7 @@ levels = {
                 ai_started = true;
                 console.log("AI started!");
                 var id = window.setInterval(function() {if (current_lvl != 3) {window.clearInterval(id);return;};ai_click();}, 5000);
+                document.getElementById('state').innerHTML = 'Enabled';
             }
         }`,
         "html": ``,
@@ -48,6 +54,7 @@ levels = {
     },
     "4": {
         "js": `
+        document.getElementById('lvl2-3').remove()
         var PlayerCounter = 0;
         var AICounter = 0;
         document.getElementById("Start").remove();
@@ -475,10 +482,9 @@ levels = {
             }
         }
 
-        const gen_token = token();
+        var gen_token = token();
         document.getElementById("key").innerHTML = gen_token;
         var started = false;
-        console.log(token)
         function StartAI(key) {
             if (started) {
                 return "AI already started";
@@ -492,6 +498,7 @@ levels = {
                     AI();
                 }, 2000);
                 console.log("AI started");
+                document.getElementById('state').innerHTML = 'Enabled';
                 started = !started;
             } else {
                 console.log("Invalid token");
@@ -525,6 +532,9 @@ levels = {
                     </td>
             </tr>
         </table>
+        <div id="lvl2-3">
+                AI: <span id="state">disabled</span>
+        </div>
         </div>`,
         "tips": ["Hm, I think I have seen a key somewhere in the code. I wonder what you can activate with it", "I have checked the code for you. I have found the function StartAI(), but it needs a key! I hope you have the key…", "If you have activated the AI it would help you if an old version would run. I think there are some comments about that in the code", "You can find the code in the json_loading div. Change it to the old version and then run reload_code() in the console!"]
     },
