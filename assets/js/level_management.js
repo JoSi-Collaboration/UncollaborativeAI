@@ -205,7 +205,7 @@ function next_level() {
             if (time["min"] != 4) {
                 hint_dict = { 3: 0, 2: 1, 1: 2, 0: 3 }
                 if (levels[String(current_lvl)]["tips"][hint_dict[time["min"]]] != undefined) {
-                    main_area.innerHTML += `<span class="hint_notif" id="hint"><b>HINT: </b>${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</span>`;
+                    main_area.innerHTML += `<span class="hint_notif" id="hint"><img src="assets/image/robot.png" width=100 style="float:left;"><div class="arrow-left"></div><div class="speech-bubble">HINT: ${levels[String(current_lvl)]["tips"][hint_dict[time["min"]]]}</div></span>`;
                     var times_run = 0;
                     var remove_hint = window.setInterval(function() {
                         if (times_run == 0) {
