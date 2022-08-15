@@ -665,7 +665,7 @@ levels = {
                 </tr>
             </table>
         </div>`,
-        "tips": ["You need to press the Player button at the same time as the AI presses the AI button", "Everytime the AI presses its button, the button turns green", "Maybe you can try spam-clicking the Player button"]
+        "tips": ["The AI is writing. You can just block letters from being deleted by the AI and delete the last letter added.", ""]
     }
 };
 
