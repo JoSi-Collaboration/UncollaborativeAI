@@ -3,7 +3,7 @@ var last_ai_click = 0;
 var time_update = 0;
 var last_lvl_upd = 0;
 var audio_enabled = true;
-var words = ["HELLO", ""];
+var words = ["HELLO"];
 var word_KI_Trys_toWrite = [];
 var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
