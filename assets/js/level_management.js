@@ -7,6 +7,9 @@ var words = ["HELLO"];
 var word_KI_Trys_toWrite = [];
 var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+console.log("DISCLAIMER: We know that you can call functions from the console which shouldn't be called from the console. This is not the intended way of playing this game. If you manage to complete a level without solving the problem you are just betraying yourself. Play it fair!")
+console.log("For running functions in the console, please make sure that you have selected 'Uncollaborative AI' from the dropdown next to the Run button")
+
 total_time = {
     "min": 0,
     "sec": 0
