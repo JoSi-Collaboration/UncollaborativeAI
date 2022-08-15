@@ -625,10 +625,10 @@ levels = {
                 <tr class="full-wh nb">
 
                     <td class="half-w nb button-td_lvl10">
-                        <button type="button" class="player_button" id="ai">Remove Letter</button>
+                        <button type="button" class="player_button" onclick="RemoveLetter()">Remove Letter</button>
                     </td>
                     <td class="half-w nb button-td_lvl10">
-                        <button type="button" class="player_button" onclick="">Lock Letter</button>
+                        <button type="button" class="player_button" onclick="SaveLetter()">Lock Letter</button>
                     </td>
 
                 </tr>
@@ -723,9 +723,9 @@ function next_level() {
         }, 2000);
     }
     time_update = window.setInterval(function() {
-        total_time["sec"] = total_time["sec"]+1
+        total_time["sec"] = total_time["sec"] + 1
         if (total_time["sec"] == 60) {
-            total_time["min"] = total_time["min"]+1;
+            total_time["min"] = total_time["min"] + 1;
             total_time["sec"] = 0;
         }
         if (time["sec"] == 0) {
