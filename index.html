@@ -6,198 +6,108 @@
         <meta name="description" content="You need to collaborate with the AI to pass all the levels. But the AI doesn't want to…">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="assets/css/devtools.css">
+        <link rel="stylesheet" href="assets/css/context_menu.css">
         <link href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" rel="stylesheet"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     </head>
     <body>
-        <div id="content">
-            <div id="particles">
-                <div id="start">
-                    <h1>Uncollaborative AI</h1><br>
-                    <h3>You need to collaborate with the AI to pass all the levels.<br>But the AI doesn't want to…</h3><br>
-                    <button type="button" onclick="next_level()">Start game</button>
+        <div id="editable">
+            <div id="content">
+                <div id="particles">
+                    <div id="start">
+                        <h1>Uncollaborative AI</h1><br>
+                        <h3>You need to collaborate with the AI to pass all the levels.<br>But the AI doesn't want to…</h3><br>
+                        <button type="button" onclick="next_level()">Start game</button>
+                    </div>
+                </div>
+            </div>
+            <div id="unneccessary">
+            </div>
+            <!--level specific js-->
+            <div id="js_loading"></div>
+        </div>
+        <div id="devtools" class="hidden">
+            <div id="console" class="hidden">
+                <div id="js_controlls">
+                  <table class="fw-fh">
+                    <tr class="fw-fh">
+                      <td style="height: 100%;width: 50%;text-align: left;">
+                        <button type="button" class="font2" onclick="js_run();"><i class="fa-solid fa-play black-icon"></i> Run code</button>
+                        <button type="button" class="font2" onclick="devtools_open('html');"><i class="fa-solid fa-code black-icon"></i> Go to HTML editor</button>
+                      </td>
+                      <td style="height: 100%;width: 50%;text-align: right;">
+                        <button type="button" class="font2" onclick="devtools_close('console')"><i class="fa-solid fa-xmark black-icon"></i> Close</button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div id="js_ui">
+                  <table class="fw-fh">
+                    <tr class="fw-fh">
+                      <td style="height:100%; width:30%;">
+                        <div id="js_code">
+                          <textarea id="js_code_input" class="font2 allow-tab" spellcheck="false"></textarea>
+                        </div>
+                      </td>
+                      <td style="height:100%; width:70%;">
+                        <div id="code_output"></div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+            </div>
+            <div id="html_editor" class="hidden">
+                <div id="html_controlls">
+                  <table class="fw-fh">
+                    <tr class="fw-fh">
+                      <td style="height: 100%;width: 50%;text-align: left;">
+                        <button type="button" class="font2" onclick="html_edit_save();"><i class="fa-solid fa-floppy-disk black-icon"></i> Save</button>
+                        <button type="button" class="font2" onclick="html_edit_refresh();"><i class="fa-solid fa-arrows-rotate black-icon"></i> Reload</button>
+                        <button type="button" class="font2" onclick="devtools_open('console');"><i class="fa-solid fa-terminal black-icon"></i> Go to console</button>
+                      </td>
+                      <td style="height: 100%;width: 50%;text-align: right;">
+                        <button type="button" class="font2" onclick="devtools_close('html')"><i class="fa-solid fa-xmark black-icon"></i> Close</button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div id="html_code">
+                  <!--<div class="editor-holder">-->
+                    <!--<textarea id="html_code_area" class="editor allow-tabs" spellcheck="false"></textarea>-->
+                    <textarea id="html_code_area" class="font2 allow-tab html-highlight" spellcheck="false"></textarea>
+                    <!--<pre><code class="syntax-highight html"></code></pre>-->
+                  <!--</div>-->
                 </div>
             </div>
         </div>
-        <div id="unneccessary">
-            <table>
-                <tbody>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                </tbody>
-                </table>
+        <div class="contextmenu">
+            <ul class="items">
+              <li>
+                <button type="button" onclick="devtools_open('html')">
+                  <span class="font2"> <i class="fa-solid fa-code ctx_icon"></i> View/Edit HTML </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" onclick="devtools_open('console')">
+                  <span class="font2"> <i class="fa-solid fa-terminal ctx_icon"></i> Open console </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" onclick="document.execCommand('copy');">
+                  <span class="font2"> <i class="fa-solid fa-clone ctx_icon"></i> Copy </span>
+                </button>
+              </li>
+            </ul>
         </div>
-        <div id="js_loading"></div> <!--level specific js-->
         <div><!--preloaded js scripts-->
             <script type="text/javascript" src="assets/js/particles.js"></script>
             <script type="text/javascript" src="assets/js/level_management.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script type="text/javascript" src="assets/js/devtools.js"></script>
+            <!--<script type="text/javascript" src="assets/js/syntax_highlight.js"></script>-->
         </div>
     </body>
 </html>

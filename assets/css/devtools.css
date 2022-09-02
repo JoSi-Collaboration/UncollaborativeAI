@@ -1,0 +1,94 @@
+#devtools {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #1d1a1a;
+    height: 40%;
+}
+
+#html_editor {
+    height: 100%;
+}
+
+#html_code {
+    height: 80%;
+}
+
+#html_controlls {
+    height: 20%;
+}
+
+#console {
+	height: 100%;
+}
+
+#js_controlls {
+    height: 20%;
+}
+
+#js_ui {
+    height: 80%;
+}
+
+.fw-fh {
+    height: 100%;
+    width: 100%;
+}
+
+#devtools button {
+    margin: 8px;
+    padding: 5px;
+    background-color: #BB86FC;
+    color: #000000;
+    font-size: 90%;
+    border: 0;
+}
+
+.black-icon {
+    color: #000000;
+}
+
+#js_code {
+	height: 100%;
+}
+
+#js_code_input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: black;
+    overflow-y: scroll;
+    resize: none;
+}
+
+#html_code_area {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: black;
+    overflow-y: scroll;
+    resize: none;
+}
+
+#devtools button:active {
+    background-color: #b67cfd;
+}
+
+#devtools button:hover {
+    cursor: pointer;
+}
+
+/* ==================================
+SYNTAX HIGHLIGHTING FOR CUSTOM EDITOR
+================================== */
+
+.ldt .comment { color: silver; }
+.ldt .string { color: green; }
+.ldt .number { color: navy; }
+.ldt .keyword { font-weight: bold; }
+.ldt .variable { color: cyan; }
+.ldt .define { color: blue; }
+
+/* ====================
+END SYNTAX HIGHLIGHTING
+==================== */

@@ -1,0 +1,46 @@
+/* highlight styles */
+.ldt .comment { color: silver; }
+.ldt .string { color: green; }
+.ldt .number { color: navy; }
+.ldt .keyword { font-weight: bold; }
+.ldt .variable { color: cyan; }
+.ldt .define { color: blue; }
+/* This theme is based on the Solarized theme (dark) originally created
+ * by Ethan Schoonover at http://ethanschoonover.com/solarized */
+body.dark {
+	background: #073642;
+	padding: 0;
+}
+.dark .ldt {
+	background: #002b36;
+	color: #93a1a1;
+	box-shadow: none;
+	border: 0;
+	border-radius: 0;
+}
+.ldt {
+	background:
+		linear-gradient(90deg, rgba(127,127,127,.1) 1px, transparent 1px),
+		linear-gradient(rgba(127,127,127,.1) 1px, transparent 1px);
+	background-size: 9px 9px, 9px 9px;
+	background-position: -1px -1px; /* so we don't start on a grid line */
+	background-attachment: local;
+}
+.dark .ldt textarea {
+	caret-color: #eee8d5;
+}
+.dark .ldt textarea::selection {
+	color: #002b36;
+	/* background: #839496; */
+	/* chrome forces your selection to be semi-transparent */
+	/* work around this by providing the color as rgba that is near but not quite fully opaque */
+	/* https://stackoverflow.com/questions/7224445/css3-selection-behaves-differently-in-ff-chrome */
+	background: rgb(131, 148, 150, .996);
+}
+/* highlight styles */
+.dark .ldt .comment { color: #586e75; font-style: italic; }
+.dark .ldt .string { color: #2aa198; }
+.dark .ldt .number { color: #d33682; }
+.dark .ldt .keyword { color: #859900; font-weight: bold; }
+.dark .ldt .variable { color: #268bd2; }
+.dark .ldt .define { color: #b58900; }
